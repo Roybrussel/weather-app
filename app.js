@@ -12,10 +12,14 @@ app.get("/", function (req, res) {
       const weatherData = JSON.parse(data);
       const temp = Math.floor(weatherData.list[0].main.temp);
       const weatherDescription = weatherData.list[0].weather[0].description;
+      const icon = weatherData.list[0].weather[0].icon;
       res.write(
         `<h1>The current temperature in Amsterdam is ${temp} (celcius)</h1>`
       );
       res.write(`Weather description: ${weatherDescription}`);
+      res.write(
+        `<img src="http://openweathermap.org/img/wn/${icon}@2x.png" alt="weather-icon"/>`
+      );
       res.send();
     });
   });
