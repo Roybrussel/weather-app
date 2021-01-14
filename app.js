@@ -10,8 +10,13 @@ app.get("/", function (req, res) {
   https.get(apiUrl, function (response) {
     response.on("data", function (data) {
       const weatherData = JSON.parse(data);
-      const temp = weatherData.list[0].main.temp;
-      res.send(`The current temperature in Amsterdam is ${Math.round(temp)}°C`);
+      const temp = Math.floor(weatherData.list[0].main.temp);
+      const weatherDescription = weatherData.list[0].weather[0].description;
+      res.write(
+        `<h1>The current temperature in Amsterdam is ${temp} (celcius)</h1>`
+      );
+      res.write(`Weather description: ${weatherDescription}`);
+      res.send();
     });
   });
 });
